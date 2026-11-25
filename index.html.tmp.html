@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>✰nightstation✰</title>
+		<link rel="stylesheet" type="text/css" href="stylesheet.css">
+		<style>
+			@font-face {
+				font-family: myFont; /* set name */
+				src: url(sansation_light.woff); /* url of the font */
+			}
+			
+			p {
+				font-family: myFont; /* use font */
+			}
+		</style>
+		<script src="https://cdn.jsdelivr.net/npm/@p10node/office-engine/dist/office-engine.embed.js"></script>
+		<script>
+			async function updateTitle() {
+				try {
+					const response = await fetch(
+						'https://station.kodair.us/nowplaying.txt?t=' + Date.now()
+					);
+					if (!response.ok) return;
+					
+					const song = (await response.text()).trim();
+					if (song) document.title = song;
+				} catch (error) {
+					console.error('Unable to get current song:', error);
+				}
+			}
+			
+			updateTitle();
+			setInterval(updateTitle, 5000);
+		</script>
+		<link rel="icon" type="image/x-icon" href="file:///Users/farwalker3/Library/CloudStorage/Source/dotcoon/images/NightStation.jpeg">
+	</head>
+	<body style="background-color: #002b36;">
+		<header style="height: 50px;display: flex;align-items: center;justify-content: center;">
+			<img src="images/NightStation.jpeg" alt="Nightstation Logo" style="position: absolute; width: 50px;left: 10px;">
+			<span style="color: #2aa198;font-size: 200%;">Welcome To Dotcoon (aka Nightstation)</span>
+		</header>
+		
+		<div class="radio">
+			<small>NIGHTSTATION · NOW PLAYING</small>
+			<h3 id="song">Loading...</h3>
+			<audio src="https://station.kodair.us/stream.mp3"
+				controls></audio>
+			<center><a href="https://www.youtube.com/watch?v=Aj0oFHDp3to&pp=ygUMbmlnaHRzdGF0aW9u">Youtube</a> <a href="https://www.twitch.tv/farwalker3">Twitch</a> <a href="https://tunein.com/radio/Nightstation-s361113/">TuneIn</a></center>
+		</div>
+		
+		
+		
+		<script>
+			async function updateSong() {
+				try {
+					const r = await fetch(
+						'https://station.kodair.us/nowplaying.txt?t=' + Date.now()
+					);
+					if (r.ok)
+						document.getElementById('song').textContent =
+					(await r.text()).trim();
+				} catch {}
+			}
+			updateSong();
+			setInterval(updateSong, 5000);
+		</script>
+		
+		<details>
+			<summary>Open Nightstation Spreadsheet</summary>
+			
+			<office-viewer
+				src="Pipeline.numbers" theme="dark"
+				style="display:block;width:100%;height:50vh;">
+			</office-viewer>
+		</details>
+	</body>
+</html>
