@@ -17,3 +17,19 @@ office-viewer {
 	height: 50vh !important;
 	max-height: 50vh;
 }
+
+.radio {
+	background: #002b36;
+	color: #93a1a1;
+	padding: 20px;
+	margin: 24px auto;
+	max-width: 500px;
+	text-align: center;
+	font-family: monospace;
+}
+
+.radio small { color: #2aa198; letter-spacing: 2px; }
+
+.radio h3 { color: #eee8d5; margin: 12px; }
+
+.radio audio { width: 100%; margin-top: 12px; }
