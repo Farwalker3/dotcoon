@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>✰nightstation✰</title>
+		<link rel="stylesheet" type="text/css" href="stylesheet.css">
+		<script src="https://cdn.jsdelivr.net/npm/@p10node/office-engine/dist/office-engine.embed.js"></script>
+		<script>
+			async function updateTitle() {
+				try {
+					const response = await fetch(
+						'https://station.kodair.us/nowplaying.txt?t=' + Date.now()
+					);
+					if (!response.ok) return;
+					
+					const song = (await response.text()).trim();
+					if (song) document.title = song;
+				} catch (error) {
+					console.error('Unable to get current song:', error);
+				}
+			}
+			
+			updateTitle();
+			setInterval(updateTitle, 5000);
+		</script>
+	</head>
+	<body style="background-color: #002b36;">
+		<header style="height: 50px;display: flex;align-items: center;justify-content: center;">
+			<img src="images/NightStation.jpeg" alt="Nightstation Logo" style="position: absolute; width: 50px;left: 10px;">
+			<span style="color: #2aa198;font-size: 200%;">Welcome To Dotcoon (aka Nightstation)</span>
+		</header>
+		
+		<style>
+			.radio {
+				background: #002b36;
+				color: #93a1a1;
+				padding: 20px;
+				margin: 24px auto;
+				max-width: 500px;
+				text-align: center;
+				font-family: monospace;
+			}
+			.radio small { color: #2aa198; letter-spacing: 2px; }
+			.radio h3 { color: #eee8d5; margin: 12px; }
+			.radio audio { width: 100%; margin-top: 12px; }
+		</style>
+		
+		<div class="radio">
+			<small>NIGHTSTATION · NOW PLAYING</small>
+			<h3 id="song">Loading...</h3>
+			<audio src="https://station.kodair.us/stream.mp3"
+				controls></audio>
+		</div>
+		
+		<script>
+			async function updateSong() {
+				try {
+					const r = await fetch(
+						'https://station.kodair.us/nowplaying.txt?t=' + Date.now()
+					);
+					if (r.ok)
+						document.getElementById('song').textContent =
+					(await r.text()).trim();
+				} catch {}
+			}
+			updateSong();
+			setInterval(updateSong, 5000);
+		</script>
+
+		
+		<details>
+			<summary>Open Nightstation Spreadsheet</summary>
+			
+			<office-viewer
+				src="Pipeline.numbers" theme="dark"
+				style="display:block;width:100%;height:50vh;">
+			</office-viewer>
+		</details>
+	</body>
+</html>
