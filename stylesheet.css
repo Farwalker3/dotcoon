@@ -1,0 +1,19 @@
+details {
+	margin: 24px;
+	padding: 12px;
+	background: transparent;
+	border: none;
+}
+
+summary {
+	cursor: pointer;
+	color: #2aa198;
+	padding: 12px 0;
+}
+
+office-viewer {
+	display: block;
+	width: 100%;
+	height: 50vh !important;
+	max-height: 50vh;
+}
